@@ -18,8 +18,6 @@ app.get('/abc', (require, response) => {
 })
 
 app.get('/vendas', (require, response) => {
-   // write your code ...
-	'papel'
 })
 
 app.listen(port, () => {
