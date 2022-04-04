@@ -3,6 +3,7 @@ const app = express();
 const port = 3000;
 
 const data = require('./db/data-old.json')
+const loja = require('./db/data.json')
 
 app.get('/', (require, response) => {
     response.send('Hello world Gio tops')
@@ -18,7 +19,7 @@ app.get('/abc', (require, response) => {
 
 app.get('/vendas', (require, response) => {
    // write your code ...
-
+	'papel'
 })
 
 app.listen(port, () => {
