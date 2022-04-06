@@ -1,28 +1,20 @@
-const express = require('express')
+const express = require('express');
+const path = require('path');
 const app = express();
 const port = 3000;
+const cors = require('cors')
 
-const data = require('./db/data-old.json')
-const loja = require('./db/data.json')
+app.use(express.static('public'));
+app.use('/db', express.static('db'));
+app.use(cors())
+
+app.use(express.json())
 
 app.get('/', (require, response) => {
-    response.send('Hello world Gio tops')
-})
-
-app.get('/abc', (require, response) => {
-    //  data : nome, idade, cidade
-    const { nome, idade, cidade } = data
-
-    const info = `Nome: ${nome}, Idade: ${idade}, Cidade: ${cidade}`
-    response.send(info)
-})
-
-app.get('/vendas', (require, response) => {
-   // write your code ...
-	'papel'
+	response.sendFile(path.join(__dirname, 'public', 'index.html'))
 })
 
 app.listen(port, () => {
-    console.log(`Example app listening on port ${port}`)
+	console.log(`Example app listening on port ${port}`)
 })
 

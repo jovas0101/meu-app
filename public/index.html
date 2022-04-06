@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+</head>
+
+<body>
+	<style>
+		table {
+			font-family: arial, sans-serif;
+			border-collapse: collapse;
+			width: 100%;
+		}
+
+		td,
+		th {
+			border: 1px solid #dddddd;
+			text-align: left;
+			padding: 8px;
+		}
+
+		tr:nth-child(even) {
+			background-color: #dddddd;
+		}
+	</style>
+	<ul id="myData"></ul>
+
+	<script type="text/javascript">
+		fetch('../db/data.json')
+			.then((response) => response.json())
+			.then((data) => appendData(data))
+			.catch(function (err) {
+				console.log('error: ' + err);
+			});
+
+		function appendData(data) {
+			const { vendas } = data
+			vendas.forEach(({ id, produto, preco, quantidade_vendida }) => {
+				const li = document.createElement("tr");
+				li.innerHTML = `- Código: ${id} 
+								- Produto: ${produto}
+								- Preço: ${preco} 
+								- Qtd Vendida ${quantidade_vendida} 
+								- vlr Total: ${0}`
+				document.getElementById("myTbody").appendChild(li);
+			});
+		}
+	</script>
+</body>
+
+</html>
