@@ -6,28 +6,23 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Document</title>
+	<link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-	<style>
-		table {
-			font-family: arial, sans-serif;
-			border-collapse: collapse;
-			width: 100%;
-		}
 
-		td,
-		th {
-			border: 1px solid #dddddd;
-			text-align: left;
-			padding: 8px;
-		}
-
-		tr:nth-child(even) {
-			background-color: #dddddd;
-		}
-	</style>
-	<ul id="myData"></ul>
+	<table>
+		<thead>
+			<tr>
+				<th>Código</th>
+				<th>Produto</th>
+				<th>Preço</th>
+				<th>Quantidade de vendas</th>
+				<th>Valor total</th>
+			</tr>
+		</thead>
+		<tbody id="myData"></tbody>
+	</table>
 
 	<script type="text/javascript">
 		fetch('../db/data.json')
@@ -39,15 +34,35 @@
 
 		function appendData(data) {
 			const { vendas } = data
+
 			vendas.forEach(({ id, produto, preco, quantidade_vendida }) => {
-				const li = document.createElement("li");
-				li.innerHTML = `- Código: ${id} 
-								- Produto: ${produto}
-								- Preço: ${preco} 
-								- Qtd Vendida ${quantidade_vendida} 
-								- vlr Total: ${0}`
-				document.getElementById("myData").appendChild(li);
+				const tr = document.createElement('tr')
+
+				const tdId = document.createElement('td')
+				const tdProduto = document.createElement('td')
+				const tdPreco = document.createElement('td')
+				const tdQtdVendida = document.createElement('td')
+				const tdVrlTotal = document.createElement('td')
+
+				tdId.innerText = id
+				tdProduto.innerText = produto
+				tdPreco.innerText = formataValor(preco)
+				tdQtdVendida.innerText = quantidade_vendida
+				tdVrlTotal.innerText = formataValor((preco * quantidade_vendida))
+
+				tr.appendChild(tdId)
+				tr.appendChild(tdProduto)
+				tr.appendChild(tdPreco)
+				tr.appendChild(tdQtdVendida)
+				tr.appendChild(tdVrlTotal)
+
+				console.log(tr)
+				document.getElementById("myData").appendChild(tr);
 			});
+
+			function formataValor(valor) {
+				return Number(valor).toLocaleString('pt-br', { style: 'currency', currency: 'BRL' })
+			}
 		}
 	</script>
 </body>
